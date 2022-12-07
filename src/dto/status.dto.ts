@@ -1,13 +1,11 @@
-export class CreateRoleDto {
+export class CreateStatusDto {
     name: string
     sortId: number
     description: string
-    isStaff: boolean
 }
 
-export class UpdateRoleDto {
+export class UpdateStatusDto {
     name?: string
     sortId?: number
     description?: string
-    isStaff?: boolean
 }

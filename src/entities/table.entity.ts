@@ -1,18 +1,22 @@
 import {
+    BaseEntity,
     Column,
     Entity,
     PrimaryGeneratedColumn,
     CreateDateColumn,
     UpdateDateColumn,
+    DeleteDateColumn,
+    OneToMany,
 } from "typeorm"
+import { Activity } from "entities"
 
 @Entity({ name: 'tables' })
-export class Table {
+export class Table extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column()
-    code: string
+    @Column({ unique: true, generated: 'increment' })
+    sortId: number
 
     @Column()
     name: string
@@ -20,12 +24,15 @@ export class Table {
     @Column()
     capacity: number
 
-    @Column()
-    status: string
+    @OneToMany(() => Activity, activity => activity.table, { nullable: true })
+    activities: Activity[]
 
     @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)' })
     createdAt: Date
 
     @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)', onUpdate: 'CURRENT_TIMESTAMP(6)' })
     updatedAt: Date
+
+    @DeleteDateColumn({ type: 'timestamp', nullable: true })
+    deletedAt: Date
 }

@@ -32,6 +32,6 @@ async function bootstrap() {
     // Passport
     app.use(passport.initialize())
     app.use(passport.session())
-    await app.listen(PORT, () => console.log(`Server started on port ${PORT}`))
+    await app.listen(PORT)
 }
 bootstrap()

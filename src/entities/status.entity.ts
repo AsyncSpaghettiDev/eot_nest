@@ -1,18 +1,23 @@
 import {
+    BaseEntity,
     Entity,
     Column,
     PrimaryGeneratedColumn,
     CreateDateColumn,
     UpdateDateColumn,
+    DeleteDateColumn,
     OneToMany,
 } from 'typeorm'
 
-import { Activity, Order } from 'entities'
+import { Activity, Order, Table } from 'entities'
 
 @Entity({ name: 'activity_status' })
-export class ActivityStatus {
+export class ActivityStatus extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number
+
+    @Column({ unique: true, generated: 'increment' })
+    sortId: number
 
     @Column()
     name: string
@@ -28,12 +33,18 @@ export class ActivityStatus {
 
     @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)', onUpdate: 'CURRENT_TIMESTAMP(6)' })
     updatedAt: Date
+
+    @DeleteDateColumn({ type: 'timestamp', nullable: true })
+    deletedAt: Date
 }
 
 @Entity({ name: 'order_status' })
-export class OrderStatus {
+export class OrderStatus extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number
+
+    @Column({ unique: true, generated: 'increment' })
+    sortId: number
 
     @Column()
     name: string
@@ -49,4 +60,7 @@ export class OrderStatus {
 
     @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)', onUpdate: 'CURRENT_TIMESTAMP(6)' })
     updatedAt: Date
+
+    @DeleteDateColumn({ type: 'timestamp', nullable: true })
+    deletedAt: Date
 }

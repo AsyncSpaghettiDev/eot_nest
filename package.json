@@ -21,6 +21,9 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@adminjs/express": "^5.0.1",
+    "@adminjs/nestjs": "^5.0.1",
+    "@adminjs/typeorm": "^4.0.0",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.0.0",
@@ -28,10 +31,11 @@
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/typeorm": "^9.0.1",
     "@types/passport-local": "^1.0.34",
+    "adminjs": "^6.7.0",
     "bcrypt": "^5.1.0",
     "connect-typeorm": "^2.0.0",
+    "express-formidable": "^1.2.0",
     "express-session": "^1.17.3",
-    "nestjs-admin": "^0.4.1",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "pg": "^8.8.0",

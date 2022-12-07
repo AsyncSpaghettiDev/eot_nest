@@ -1,32 +1,28 @@
 import {
+    BaseEntity,
     Entity,
     Column,
     PrimaryGeneratedColumn,
     CreateDateColumn,
     UpdateDateColumn,
     DeleteDateColumn,
-    OneToOne,
     ManyToOne,
-    JoinColumn,
+    OneToMany,
 } from 'typeorm'
-import { Table, ActivityStatus } from 'entities'
+import { Table, ActivityStatus, Order } from 'entities'
 
 @Entity({ name: 'activities' })
-export class Activity {
+export class Activity extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number
 
     @Column()
-    name: string
-
-    @Column()
-    description: string
+    people: number
 
     @Column()
     tableId: number
 
-    @OneToOne(() => Table)
-    @JoinColumn()
+    @ManyToOne(() => Table, table => table.activities)
     table: Table
 
     @Column()
@@ -35,12 +31,15 @@ export class Activity {
     @ManyToOne(() => ActivityStatus, status => status.activity)
     status: ActivityStatus
 
+    @OneToMany(() => Order, order => order.activity)
+    orders: Order[]
+
     @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)' })
-    createdAt: Date
+    start: Date
 
     @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)', onUpdate: 'CURRENT_TIMESTAMP(6)' })
     updatedAt: Date
 
     @DeleteDateColumn({ type: 'timestamp', nullable: true })
-    deletedAt: Date
+    end: Date
 }

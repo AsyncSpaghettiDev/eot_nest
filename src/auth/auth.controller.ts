@@ -12,8 +12,7 @@ export class AuthController {
 
     @Get()
     async getSession(@Session() session: Record<string, any>) {
-        console.log(session)
-        console.log(session.id)
+        console.log(session.authenticated)
         return session
     }
 

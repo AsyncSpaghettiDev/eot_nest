@@ -34,6 +34,6 @@ export class StaffGuard implements CanActivate {
         const request = context.switchToHttp().getRequest<Request>()
         if (!request.isAuthenticated()) return false
         const { role } = request?.user as User
-        return request.isAuthenticated() && ['admin', 'chef', 'waiter'].includes(role.name)
+        return request.isAuthenticated() && role.isStaff
     }
 }

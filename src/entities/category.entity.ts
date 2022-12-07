@@ -1,17 +1,22 @@
 import {
+    BaseEntity,
     Entity,
     Column,
     PrimaryGeneratedColumn,
     OneToMany,
     UpdateDateColumn,
-    CreateDateColumn
+    CreateDateColumn,
+    DeleteDateColumn,
 } from "typeorm"
 import { Plate } from "entities"
 
 @Entity({ name: "categories" })
-export class Category {
+export class Category extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number
+
+    @Column({ unique: true, generated: 'increment' })
+    sortId: number
 
     @Column()
     name: string
@@ -27,4 +32,7 @@ export class Category {
 
     @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     createdAt: Date
+
+    @DeleteDateColumn({ type: 'timestamp', nullable: true })
+    deletedAt: Date
 }

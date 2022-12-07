@@ -7,6 +7,7 @@ import { Activity } from './activity.entity'
 import { Table } from './table.entity'
 import { ActivityStatus, OrderStatus } from './status.entity'
 import { Order } from './order.entity'
+import { Notes } from './notes.entity'
 
 export {
     Role,
@@ -19,6 +20,7 @@ export {
     ActivityStatus,
     OrderStatus,
     Order,
+    Notes,
 }
 
 export const entities = [
@@ -32,4 +34,18 @@ export const entities = [
     ActivityStatus,
     OrderStatus,
     Order,
+    Notes,
+]
+
+export const resources = [
+    User,
+    Role,
+    Plate,
+    Category,
+    Table,
+    Activity,
+    Order,
+    Notes,
+    ActivityStatus,
+    OrderStatus,
 ]

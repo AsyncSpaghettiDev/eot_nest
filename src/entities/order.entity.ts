@@ -1,32 +1,30 @@
 import {
+    BaseEntity,
     Entity,
     Column,
     PrimaryGeneratedColumn,
     CreateDateColumn,
     UpdateDateColumn,
     DeleteDateColumn,
-    OneToOne,
     ManyToOne,
-    JoinColumn,
 } from 'typeorm'
 import { OrderStatus, Activity, Plate } from 'entities'
 
 @Entity({ name: 'orders' })
-export class Order {
+export class Order extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number
 
     @Column()
-    name: string
+    quantity: number
 
-    @Column()
-    description: string
+    @Column({ type: 'decimal', precision: 10, scale: 2 })
+    subtotal: number
 
     @Column()
     activityId: number
 
-    @OneToOne(() => Activity)
-    @JoinColumn()
+    @ManyToOne(() => Activity, activity => activity.orders)
     activity: Activity
 
     @Column()

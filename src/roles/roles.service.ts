@@ -8,7 +8,11 @@ import { CreateRoleDto, UpdateRoleDto } from 'dto'
 export class RolesService {
     constructor(@InjectRepository(Role) private roleRepository: Repository<Role>) { }
     async getRoles() {
-        return this.roleRepository.find()
+        return this.roleRepository.find({
+            order: {
+                sortId: 'ASC'
+            }
+        })
     }
 
     async getRole(id: number) {

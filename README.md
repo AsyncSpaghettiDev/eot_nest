@@ -1,73 +1,110 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# EatOnTime backend API
+This is the backend API for the EatOnTime app. It is written in Node.js and uses NestJS / Express.js as the web framework. It uses PostgreSQL as the database, and TypeORM as the ORM.
+Currently, the API is hosted on Fly.io at 
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Getting Started
+### Prerequisites
+- Node.js
+- PostgreSQL
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Installation
-
-```bash
-$ npm install
+### Installing
+1. Clone the repository
+2. Install dependencies
+3. Create a .env file in the root directory and add the following environment variables:
 ```
-
-## Running the app
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+DATABASE_URL=
+DB_HOST=
+DB_PORT=
+DB_USER=
+DB_PASSWORD=
+DB_DATABASE=
+# PORT for the API
+PORT=
+# for session management
+SESSION_SECRET=
+# adminjs credentials
+ADMIN_EMAIL=
+ADMIN_PASSWORD=
 ```
+4. Run `npm run start:dev` to start the server in development mode
 
-## Test
+## Deployment
+The API is currently deployed on Fly.io. To deploy, run `npm run build` and then `npm run start:prod`.
 
-```bash
-# unit tests
-$ npm run test
+## Built With
+- [NestJS](https://nestjs.com/) - The web framework used
+- [TypeScript](https://www.typescriptlang.org/) - The language used
+- [TypeORM](https://typeorm.io/#/) - The ORM used
+- [PostgreSQL](https://www.postgresql.org/) - The database used
+- [Fly.io](https://fly.io/) - The hosting service used
 
-# e2e tests
-$ npm run test:e2e
+## API Documentation
+### Admin Panel
+The admin panel is accessible at `/admin`. It is used to manage the database. The credentials are set in the .env file.
+### Routes
+#### Authentication
+| Method | Role Required | Route           | Description           |
+| ------ | ------------- | --------------- | --------------------- |
+| POST   |               | api/auth/login  | Login into the system |
+| GET    | Authenticated | api/auth/       | Get the current user  |
+| POST   | Authenticated | api/auth/logout | Logout of the system  |
 
-# test coverage
-$ npm run test:cov
-```
+#### Users
+| Method | Role Required | Route         | Description      |
+| ------ | ------------- | ------------- | ---------------- |
+| GET    | Admin         | api/users/    | Get all users    |
+| GET    | Admin         | api/users/:id | Get a user by id |
+| POST   | Admin         | api/users/    | Create a user    |
+| PUT    | Admin         | api/users/:id | Update a user    |
+| DELETE | Admin         | api/users/:id | Delete a user    |
+#### Tables
+| Method | Role Required | Route                  | Description                               |
+| ------ | ------------- | ---------------------- | ----------------------------------------- |
+| GET    | Authenticated | api/tables/            | Get all tables                            |
+| GET    | Admin         | api/tables/history     | Get all tables with deleted activities    |
+| GET    | Authenticated | api/tables/:id         | Get a table by id                         |
+| GET    | Admin         | api/tables/history/:id | Get a table by id with deleted activities |
+| POST   | Staff         | api/tables/            | Create a table                            |
+| PUT    | Staff         | api/tables/:id         | Update a table                            |
+| DELETE | Admin         | api/tables/:id         | Delete a table                            |
+#### Categories
+| Method | Role Required | Route            | Description          |
+| ------ | ------------- | ---------------- | -------------------- |
+| GET    |               | api/category/    | Get all categories   |
+| GET    |               | api/category/:id | Get a category by id |
+| POST   | Admin         | api/category/    | Create a category    |
+| PUT    | Admin         | api/category/:id | Update a category    |
+| DELETE | Admin         | api/category/:id | Delete a category    |
+#### Plates
+| Method | Role Required | Route          | Description       |
+| ------ | ------------- | -------------- | ----------------- |
+| GET    |               | api/plates/    | Get all plates    |
+| GET    |               | api/plates/:id | Get a plate by id |
+| POST   | Staff         | api/plates/    | Create a plate    |
+| PUT    | Staff         | api/plates/:id | Update a plate    |
+| DELETE | Admin         | api/plates/:id | Delete a plate    |
+#### Orders
+| Method | Role Required | Route                         | Description                |
+| ------ | ------------- | ----------------------------- | -------------------------- |
+| GET    | Staff         | api/orders/                   | Get all orders             |
+| GET    | Authenticated | api/orders/:id                | Get an order by id         |
+| POST   | Authenticated | api/orders/                   | Create an order            |
+| PUT    | Staff         | api/orders/:id                | Update an order            |
+| POST   | Authenticated | api/orders/request_cancel/:id | Request to cancel an order |
+| DELETE | Admin         | api/orders/cancel/:id         | Cancel an order            |
+| DELETE | Staff         | api/orders/:id                | Delete an order            |
+#### Activities
+| Method | Role Required | Route                    | Description                                        |
+| ------ | ------------- | ------------------------ | -------------------------------------------------- |
+| GET    | Admin         | api/activity/            | Get all activities including deleted activities    |
+| GET    | Staff         | api/activity/current/    | Get all activities                                 |
+| GET    | Admin         | api/activity/:id         | Get an activity by id including deleted activities |
+| GET    | Authenticated | api/activity/current/:id | Get an activity by id                              |
+| POST   | Staff         | api/activity/            | Create an activity                                 |
+| PUT    | Staff         | api/activity/:id         | Update an activity                                 |
+| DELETE | Admin         | api/activity/:id         | Delete an activity                                 |
+## Authors
+- **Jonathan Mojica** - *Full work*
 
-## Support
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).

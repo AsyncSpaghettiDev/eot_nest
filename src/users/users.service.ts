@@ -15,13 +15,21 @@ export class UsersService {
     ) { }
 
     getUsers() {
-        return this.userRepository.find()
+        return this.userRepository.find({
+            order: {
+                roleId: 'ASC',
+            }
+        })
     }
 
     async getUser(id: number) {
         const user = await this.userRepository.findOne({
             where: { id },
-            relations: ['role']
+            relations: ['role'],
+            select: {
+                id: false,
+                password: false,
+            }
         })
         if (!user)
             throw new HttpException('User not found', HttpStatus.NOT_FOUND)

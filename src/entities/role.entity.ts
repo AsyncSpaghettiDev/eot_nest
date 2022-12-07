@@ -1,4 +1,5 @@
 import {
+    BaseEntity,
     Entity,
     PrimaryGeneratedColumn,
     Column,
@@ -9,15 +10,21 @@ import {
 import { User } from 'entities'
 
 @Entity({ name: 'roles' })
-export class Role {
+export class Role extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number
+
+    @Column({ unique: true, generated: 'increment' })
+    sortId: number
 
     @Column()
     name: string
 
     @Column()
     description: string
+
+    @Column({ default: false })
+    isStaff: boolean
 
     @OneToMany(_ => User, user => user.role)
     user: User

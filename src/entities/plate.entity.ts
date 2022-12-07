@@ -1,16 +1,18 @@
 import {
+    BaseEntity,
     Entity,
     Column,
     PrimaryGeneratedColumn,
     ManyToOne,
     OneToMany,
     UpdateDateColumn,
-    CreateDateColumn
+    CreateDateColumn,
+    DeleteDateColumn,
 } from "typeorm"
 import { Category, Order } from "entities"
 
 @Entity({ name: "plates" })
-export class Plate {
+export class Plate extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number
 
@@ -26,10 +28,10 @@ export class Plate {
     @Column()
     image: string
 
-    @Column()
+    @Column({ default: 1 })
     quantity: number
 
-    @Column()
+    @Column({ default: false })
     isVeg: boolean
 
     @Column()
@@ -46,4 +48,7 @@ export class Plate {
 
     @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     createdAt: Date
+
+    @DeleteDateColumn({ type: 'timestamp', nullable: true })
+    deletedAt: Date
 }
