@@ -1,4 +1,5 @@
-import { Controller, Get, Post, Session, UseGuards } from '@nestjs/common'
+import { Controller, Get, Post, Session, UseGuards, Query, HttpException, HttpStatus } from '@nestjs/common'
+import { hashPassword } from 'utils/bcrypt'
 import { LocalAuthGuard } from './utils/LocalGuard'
 
 @Controller('auth')
@@ -8,6 +9,12 @@ export class AuthController {
     login(@Session() session: Record<string, any>) {
         session.authenticated = true
         return session
+    }
+
+    @Get('encrypt')
+    async encrypt(@Query('password') password: string) {
+        if (!password) throw new HttpException('Password is required', HttpStatus.BAD_REQUEST)
+        return hashPassword(password)
     }
 
     @Get()

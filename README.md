@@ -44,11 +44,12 @@ The API is currently deployed on Fly.io. To deploy, run `npm run build` and then
 The admin panel is accessible at `/admin`. It is used to manage the database. The credentials are set in the .env file.
 ### Routes
 #### Authentication
-| Method | Role Required | Route           | Description           |
-| ------ | ------------- | --------------- | --------------------- |
-| POST   |               | api/auth/login  | Login into the system |
-| GET    | Authenticated | api/auth/       | Get the current user  |
-| POST   | Authenticated | api/auth/logout | Logout of the system  |
+| Method | Role Required | Route                      | Description           |
+| ------ | ------------- | -------------------------- | --------------------- |
+| POST   |               | api/auth/login             | Login into the system |
+| GET    | Authenticated | api/auth/                  | Get the current user  |
+| GET    |               | api/auth/encrypt?password= | Encrypt a password    |
+| POST   | Authenticated | api/auth/logout            | Logout of the system  |
 
 #### Users
 | Method | Role Required | Route         | Description      |

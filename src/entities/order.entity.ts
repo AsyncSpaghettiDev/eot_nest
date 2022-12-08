@@ -7,8 +7,10 @@ import {
     UpdateDateColumn,
     DeleteDateColumn,
     ManyToOne,
+    ManyToMany,
+    JoinTable,
 } from 'typeorm'
-import { OrderStatus, Activity, Plate } from 'entities'
+import { OrderStatus, Activity, Plate, Notes } from 'entities'
 
 @Entity({ name: 'orders' })
 export class Order extends BaseEntity {
@@ -32,6 +34,13 @@ export class Order extends BaseEntity {
 
     @ManyToOne(() => Plate, plate => plate.order)
     plate: Plate
+
+    @ManyToMany(() => Notes)
+    @JoinTable()
+    notes: Notes[]
+
+    @Column({ type: 'text', nullable: true })
+    comments: string
 
     @Column()
     statusId: number
