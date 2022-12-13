@@ -1,5 +1,4 @@
 import { Controller, Get, Post, Session, UseGuards, Query, HttpException, HttpStatus } from '@nestjs/common'
-import { Body, Param } from '@nestjs/common/decorators'
 import { hashPassword } from 'utils/bcrypt'
 import { AuthService } from './auth.service'
 import { LocalAuthGuard } from './utils/LocalGuard'
@@ -12,8 +11,7 @@ export class AuthController {
     @Post('login')
     login(@Session() session: Record<string, any>) {
         session.authenticated = true
-        console.log(session.id)
-        return { ...session, token: session.id }
+        return session
     }
 
     @Get('encrypt')
@@ -22,19 +20,18 @@ export class AuthController {
         return hashPassword(password)
     }
 
-    @Get(':session_id')
-    async getSession(@Param('session_id') session_id: string) {
-        return this.authService.getSession(session_id)
+    @Get()
+    async getCurrentSession(@Session() session: Record<string, any>) {
+        return session
     }
 
     @Post('logout')
     async logout(
-        @Session() session: Record<string, any>,
-        @Body('token') session_id: string
+        @Session() session: Record<string, any>
     ) {
         session.authenticated = false
+        this.authService.deleteSession(session.id)
         session.destroy()
-        this.authService.deleteSession(session_id || session.id)
         return session
     }
 }

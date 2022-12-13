@@ -22,14 +22,6 @@ export class AuthService {
 
     }
 
-    async getSession(session_id: string) {
-        const session = await this.sessionRepository.findOne({
-            where: { id: session_id },
-            select: ['json']
-        })
-        return session
-    }
-
     async deleteSession(session_id: string) {
         const session = await this.sessionRepository.findOne({ where: { id: session_id } })
         await this.sessionRepository.softRemove(session)
