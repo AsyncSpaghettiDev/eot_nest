@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { User } from 'entities'
+import { SessionEntity, User } from 'entities'
 import { AuthController } from './auth.controller'
 import { AuthService } from './auth.service'
 import { UsersService } from 'users/users.service'
@@ -11,7 +11,7 @@ import { LocalStrategy } from './utils/LocalStrategy'
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, SessionEntity]),
     UsersModule,
     RolesModule,
   ],
@@ -26,7 +26,8 @@ import { LocalStrategy } from './utils/LocalStrategy'
       useClass: UsersService
     },
     SessionSerializer,
-    LocalStrategy
+    LocalStrategy,
+    AuthService,
   ]
 })
 export class AuthModule { }

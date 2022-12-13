@@ -1,4 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { SessionEntity } from 'entities'
+import { Repository } from 'typeorm'
 import { UsersService } from 'users/users.service'
 import { comparePassword } from 'utils/bcrypt'
 
@@ -6,6 +9,7 @@ import { comparePassword } from 'utils/bcrypt'
 export class AuthService {
     constructor(
         @Inject('USER_SERVICE') private readonly userService: UsersService,
+        @InjectRepository(SessionEntity) private readonly sessionRepository: Repository<SessionEntity>,
     ) { }
 
     async validateUser(username: string, password: string): Promise<any> {
@@ -17,4 +21,18 @@ export class AuthService {
         return null
 
     }
+
+    async getSession(session_id: string) {
+        const session = await this.sessionRepository.findOne({
+            where: { id: session_id },
+            select: ['json']
+        })
+        return session
+    }
+
+    async deleteSession(session_id: string) {
+        const session = await this.sessionRepository.findOne({ where: { id: session_id } })
+        await this.sessionRepository.softRemove(session)
+    }
+
 }
