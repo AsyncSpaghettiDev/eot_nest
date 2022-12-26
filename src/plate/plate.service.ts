@@ -37,26 +37,21 @@ export class PlateService {
     }
 
     async createPlate(plate: CreatePlateDto) {
-        const { name } = plate
+        const { name, categoryId } = plate
         // validate if plate already exists
         await this.plateDuplicated(name)
 
         // validate if category exists
-        await this.categoryService.categoryExists(plate.categoryId)
+        await this.categoryService.categoryExists(categoryId)
 
         const newPlate = this.plateRepository.create(plate)
         return this.plateRepository.save(newPlate)
     }
 
     async updatePlate(id: number, plate: UpdatePlateDto) {
-        const { name } = plate
         await this.plateExists(id)
 
-        await this.plateDuplicated(name)
-
-        const updatedPlate = await this.plateRepository.update(id, {
-            name
-        })
+        const updatedPlate = await this.plateRepository.update(id, plate)
         return updatedPlate
     }
 

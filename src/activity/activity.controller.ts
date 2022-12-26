@@ -11,7 +11,7 @@ import {
 import { AdminGuard, AuthenticatedGuard, StaffGuard } from 'auth/utils/LocalGuard'
 import { ActivityService } from './activity.service'
 import {
-    CreateActivityDto, UpdateActivityDto,
+    CreateActivityDto,
 } from 'dto'
 
 @Controller('activity')
@@ -44,6 +44,12 @@ export class ActivityController {
         return await this.activityService.getCurrentActivity(id)
     }
 
+    @UseGuards(AuthenticatedGuard)
+    @Get('table/:id')
+    async getCurrentTableActivity(@Param('id') id: number) {
+        return await this.activityService.getCurrentTableActivity(id)
+    }
+
     @UseGuards(StaffGuard)
     @Post()
     async createActivity(@Body() activity: CreateActivityDto) {
@@ -52,8 +58,8 @@ export class ActivityController {
 
     @UseGuards(StaffGuard)
     @Put(':id')
-    async updateActivity(@Param('id') id: number, @Body() activity: UpdateActivityDto) {
-        return await this.activityService.updateActivity(id, activity)
+    async updateActivity(@Param('id') id: number) {
+        return await this.activityService.updateActivity(id)
     }
 
     @UseGuards(StaffGuard)

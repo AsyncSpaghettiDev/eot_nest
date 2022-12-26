@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { Activity } from 'entities'
 import {
-    CreateActivityDto, UpdateActivityDto,
+    CreateActivityDto,
 } from 'dto'
 import { ActivityStatusService } from 'status/status.service'
 
@@ -50,15 +50,38 @@ export class ActivityService {
         })
     }
 
+    async getCurrentTableActivity(id: number): Promise<Activity> {
+        const activity = await this.activityRepository.findOne({
+            where: {
+                tableId: id,
+                end: null
+            },
+            relations: ['table', 'status', 'orders']
+        })
+        if (!activity)
+            throw new HttpException('Table without activity', HttpStatus.NOT_FOUND)
+
+        return activity
+    }
+
     async createActivity(activity: CreateActivityDto): Promise<Activity> {
-        const newActivity = this.activityRepository.create(activity)
+        const statusId: number = await this.statusService.getActivityStatusId('occupied')
+        const newActivity = this.activityRepository.create({
+            ...activity,
+            statusId
+        })
         return this.activityRepository.save(newActivity)
     }
 
-    async updateActivity(id: number, activity: UpdateActivityDto) {
+    async updateActivity(id: number) {
         await this.activityExists(id)
 
-        const updatedActivity = await this.activityRepository.update(id, activity)
+        const pendingStatusId: number = await this.statusService.getActivityStatusId('pending')
+
+        const updatedActivity = await this.activityRepository.update(id, {
+            statusId: pendingStatusId
+        })
+
         return updatedActivity
     }
 

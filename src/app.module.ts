@@ -13,6 +13,7 @@ import { PlateModule } from './plate/plate.module'
 import { StatusModule } from './status/status.module'
 import { TableModule } from './table/table.module'
 import { entities } from 'entities'
+import { migrations } from 'migrations'
 
 ConfigModule.forRoot()
 import { AdminPanelModule } from 'admin.panel'
@@ -32,6 +33,7 @@ import { AdminPanelModule } from 'admin.panel'
             password: process.env.DB_PASSWORD,
             database: process.env.DB_DATABASE,
             entities,
+            // migrations,
             synchronize: true,
         }),
         RolesModule,

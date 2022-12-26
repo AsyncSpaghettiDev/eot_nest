@@ -102,9 +102,10 @@ The admin panel is accessible at `/admin`. It is used to manage the database. Th
 | GET    | Staff         | api/activity/current/    | Get all activities                                 |
 | GET    | Admin         | api/activity/:id         | Get an activity by id including deleted activities |
 | GET    | Authenticated | api/activity/current/:id | Get an activity by id                              |
+| GET    | Authenticated | api/activity/table/:id   | Get the last activity of a table                   |
 | POST   | Staff         | api/activity/            | Create an activity                                 |
 | PUT    | Staff         | api/activity/:id         | Update an activity                                 |
-| DELETE | Admin         | api/activity/:id         | Delete an activity                                 |
+| DELETE | Staff         | api/activity/:id         | Delete an activity                                 |
 ## Authors
 - **Jonathan Mojica** - *Full work*
 

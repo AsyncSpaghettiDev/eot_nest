@@ -30,9 +30,7 @@ export class CategoryService {
 
         await this.categoryDuplicated(name)
 
-        const newCategory = this.categoryRepository.create({
-            name
-        })
+        const newCategory = this.categoryRepository.create(category)
         return await this.categoryRepository.save(newCategory)
     }
 

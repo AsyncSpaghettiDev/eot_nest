@@ -19,7 +19,6 @@ export class AuthService {
             return result
         }
         return null
-
     }
 
     async deleteSession(session_id: string) {

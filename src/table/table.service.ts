@@ -13,7 +13,7 @@ export class TableService {
 
     getTables() {
         return this.tableRepository.find({
-            relations: ['activities'],
+            relations: ['activities', 'activities.status'],
             order: {
                 sortId: 'ASC',
             }
@@ -25,13 +25,13 @@ export class TableService {
             where: {
                 id
             },
-            relations: ['activities']
+            relations: ['activities', 'activities.status']
         })
     }
 
     getHistoryTables() {
         return this.tableRepository.find({
-            relations: ['activities'],
+            relations: ['activities', 'activities.status'],
             withDeleted: true,
             order: {
                 sortId: 'ASC',
@@ -50,7 +50,7 @@ export class TableService {
     }
 
     async createTable(table: CreateTableDto) {
-        const { name, capacity, statusId } = table
+        const { name, capacity, } = table
         // validate if table already exists
         await this.tableDuplicated(name)
 
@@ -62,20 +62,25 @@ export class TableService {
     }
 
     async updateTable(id: number, table: UpdateTableDto) {
-        const { name, capacity, statusId } = table
-        await this.tableExists(id)
+        const { name, capacity } = table
+        const tableExists = await this.tableExists(id)
 
-        await this.tableDuplicated(name)
+        if (tableExists.activities.length > 0) throw new HttpException('Table has active activities', HttpStatus.CONFLICT)
 
         const updatedTable = await this.tableRepository.update(id, {
             name,
             capacity,
         })
-        return updatedTable
+        return {
+            ...updatedTable,
+            capacity,
+        }
     }
 
     async deleteTable(id: number) {
-        await this.tableExists(id)
+        const table = await this.tableExists(id)
+
+        if (table.activities.length > 0) throw new HttpException('Table has activities', HttpStatus.CONFLICT)
 
         const deletedTable = await this.tableRepository.softDelete(id)
         return deletedTable
@@ -85,7 +90,8 @@ export class TableService {
         const table = await this.tableRepository.findOne({
             where: {
                 id
-            }
+            },
+            relations: ['activities']
         })
         if (!table) throw new HttpException('Table not found', HttpStatus.NOT_FOUND)
         return table
