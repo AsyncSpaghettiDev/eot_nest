@@ -20,30 +20,30 @@ import { Notes } from 'entities/notes.entity'
 ConfigModule.forRoot()
 
 export default new DataSource({
-    type: 'postgres',
-    url: process.env.DATABASE_URL,
-    host: process.env.DB_HOST,
-    port: parseInt(process.env.DB_PORT),
-    username: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE,
-    entities: [
-        Role,
-        User,
-        SessionEntity,
-        Plate,
-        Category,
-        Activity,
-        Table,
-        ActivityStatus,
-        OrderStatus,
-        Order,
-        Notes,
-    ],
-    migrations: [
-        activityStatus1671843784144,
-        orderStatus1671844158031,
-        roles1671844314438,
-        notes1671844549649
-    ],
+  type: 'postgres',
+  url: process.env.DATABASE_URL,
+  host: process.env.DB_HOST,
+  port: parseInt(process.env.DB_PORT),
+  username: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
+  entities: [
+    Role,
+    User,
+    SessionEntity,
+    Plate,
+    Category,
+    Activity,
+    Table,
+    ActivityStatus,
+    OrderStatus,
+    Order,
+    Notes
+  ],
+  migrations: [
+    activityStatus1671843784144,
+    orderStatus1671844158031,
+    roles1671844314438,
+    notes1671844549649
+  ]
 })

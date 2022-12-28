@@ -1,4 +1,4 @@
 export class CreateActivityDto {
-    people: number
-    tableId: number
+  people: number
+  tableId: number
 }

@@ -1,9 +1,8 @@
-import { MigrationInterface, QueryRunner } from "typeorm"
+import { MigrationInterface, QueryRunner } from 'typeorm'
 
 export class orderStatus1671844158031 implements MigrationInterface {
-
-    public async up(queryRunner: QueryRunner): Promise<void> {
-        queryRunner.query(
+  public async up (queryRunner: QueryRunner): Promise<void> {
+    queryRunner.query(
             `INSERT INTO
                 order_status
                 (id, name, description, createdAt, updatedAt)
@@ -15,12 +14,11 @@ export class orderStatus1671844158031 implements MigrationInterface {
                 (5, 'cancel_requested', 'order cancelled by the table', '2022-12-24 00:00:00', '2022-12-24 00:00:00'),
                 (6, 'cancelled', 'order cancelled by the kitchen', '2022-12-24 00:00:00', '2022-12-24 00:00:00'),
                 ON DUPLICATE KEY UPDATE`
-        )
+    )
+  }
 
-    }
-
-    public async down(queryRunner: QueryRunner): Promise<void> {
-        queryRunner.query(
+  public async down (queryRunner: QueryRunner): Promise<void> {
+    queryRunner.query(
             `DELETE FROM
                 order_status
             WHERE
@@ -30,7 +28,6 @@ export class orderStatus1671844158031 implements MigrationInterface {
                 id = 4 AND
                 id = 5 AND
                 id = 6`
-        )
-    }
-
+    )
+  }
 }

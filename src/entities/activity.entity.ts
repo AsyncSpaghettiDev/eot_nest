@@ -1,45 +1,45 @@
 import {
-    BaseEntity,
-    Entity,
-    Column,
-    PrimaryGeneratedColumn,
-    CreateDateColumn,
-    UpdateDateColumn,
-    DeleteDateColumn,
-    ManyToOne,
-    OneToMany,
+  BaseEntity,
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  DeleteDateColumn,
+  ManyToOne,
+  OneToMany
 } from 'typeorm'
 import { Table, ActivityStatus, Order } from 'entities'
 
 @Entity({ name: 'activities' })
 export class Activity extends BaseEntity {
     @PrimaryGeneratedColumn()
-    id: number
+      id: number
 
     @Column()
-    people: number
+      people: number
 
     @Column()
-    tableId: number
+      tableId: number
 
     @ManyToOne(() => Table, table => table.activities)
-    table: Table
+      table: Table
 
     @Column()
-    statusId: number
+      statusId: number
 
     @ManyToOne(() => ActivityStatus, status => status.activity)
-    status: ActivityStatus
+      status: ActivityStatus
 
     @OneToMany(() => Order, order => order.activity)
-    orders: Order[]
+      orders: Order[]
 
     @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)' })
-    start: Date
+      start: Date
 
     @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)', onUpdate: 'CURRENT_TIMESTAMP(6)' })
-    updatedAt: Date
+      updatedAt: Date
 
     @DeleteDateColumn({ type: 'timestamp', nullable: true })
-    end: Date
+      end: Date
 }

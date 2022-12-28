@@ -1,9 +1,8 @@
-import { MigrationInterface, QueryRunner } from "typeorm"
+import { MigrationInterface, QueryRunner } from 'typeorm'
 
 export class notes1671844549649 implements MigrationInterface {
-
-    public async up(queryRunner: QueryRunner): Promise<void> {
-        queryRunner.query(
+  public async up (queryRunner: QueryRunner): Promise<void> {
+    queryRunner.query(
             `INSERT INTO
                 notes
                 (id, name, description, createdAt, updatedAt)
@@ -23,11 +22,11 @@ export class notes1671844549649 implements MigrationInterface {
                 (13, 'No jalapeno', 'Don't aggregate jalapeno', '2022-12-24 00:00:00', '2022-12-24 00:00:00'),
                 (14, 'No extra condiments', 'Don't aggregate extra condiments', '2022-12-24 00:00:00', '2022-12-24 00:00:00'),
                 ON DUPLICATE KEY UPDATE`
-        )
-    }
+    )
+  }
 
-    public async down(queryRunner: QueryRunner): Promise<void> {
-        queryRunner.query(
+  public async down (queryRunner: QueryRunner): Promise<void> {
+    queryRunner.query(
             `DELETE FROM
                 notes
             WHERE
@@ -45,7 +44,6 @@ export class notes1671844549649 implements MigrationInterface {
                 id = 12 AND
                 id = 13 AND
                 id = 14`
-        )
-    }
-
+    )
+  }
 }

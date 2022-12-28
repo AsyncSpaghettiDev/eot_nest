@@ -1,59 +1,59 @@
 import {
-    BaseEntity,
-    Entity,
-    Column,
-    PrimaryGeneratedColumn,
-    CreateDateColumn,
-    UpdateDateColumn,
-    DeleteDateColumn,
-    ManyToOne,
-    ManyToMany,
-    JoinTable,
+  BaseEntity,
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  DeleteDateColumn,
+  ManyToOne,
+  ManyToMany,
+  JoinTable
 } from 'typeorm'
 import { OrderStatus, Activity, Plate, Notes } from 'entities'
 
 @Entity({ name: 'orders' })
 export class Order extends BaseEntity {
     @PrimaryGeneratedColumn()
-    id: number
+      id: number
 
     @Column()
-    quantity: number
+      quantity: number
 
     @Column({ type: 'decimal', precision: 10, scale: 2 })
-    subtotal: number
+      subtotal: number
 
     @Column()
-    activityId: number
+      activityId: number
 
     @ManyToOne(() => Activity, activity => activity.orders)
-    activity: Activity
+      activity: Activity
 
     @Column()
-    plateId: number
+      plateId: number
 
     @ManyToOne(() => Plate, plate => plate.order)
-    plate: Plate
+      plate: Plate
 
     @ManyToMany(() => Notes)
     @JoinTable()
-    notes: Notes[]
+      notes: Notes[]
 
     @Column({ type: 'text', nullable: true })
-    comments: string
+      comments: string
 
     @Column()
-    statusId: number
+      statusId: number
 
     @ManyToOne(() => OrderStatus, status => status.order)
-    status: OrderStatus
+      status: OrderStatus
 
     @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)' })
-    createdAt: Date
+      createdAt: Date
 
     @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)', onUpdate: 'CURRENT_TIMESTAMP(6)' })
-    updatedAt: Date
+      updatedAt: Date
 
     @DeleteDateColumn({ type: 'timestamp', nullable: true })
-    deletedAt: Date
+      deletedAt: Date
 }

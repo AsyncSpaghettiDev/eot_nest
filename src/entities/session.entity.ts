@@ -5,14 +5,14 @@ import { Column, DeleteDateColumn, Entity, Index, PrimaryColumn } from 'typeorm'
 export class SessionEntity implements ISession {
     @Index()
     @Column('bigint')
-    expiredAt: number
+      expiredAt: number
 
     @PrimaryColumn('varchar', { length: 255 })
-    id: string
+      id: string
 
     @Column('text')
-    json: string
+      json: string
 
     @DeleteDateColumn()
-    destroyedAt: Date
+      destroyedAt: Date
 }

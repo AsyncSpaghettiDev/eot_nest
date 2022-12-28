@@ -1,54 +1,54 @@
 import {
-    BaseEntity,
-    Entity,
-    Column,
-    PrimaryGeneratedColumn,
-    ManyToOne,
-    OneToMany,
-    UpdateDateColumn,
-    CreateDateColumn,
-    DeleteDateColumn,
-} from "typeorm"
-import { Category, Order } from "entities"
+  BaseEntity,
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  OneToMany,
+  UpdateDateColumn,
+  CreateDateColumn,
+  DeleteDateColumn
+} from 'typeorm'
+import { Category, Order } from 'entities'
 
-@Entity({ name: "plates" })
+@Entity({ name: 'plates' })
 export class Plate extends BaseEntity {
     @PrimaryGeneratedColumn()
-    id: number
+      id: number
 
     @Column({ unique: true })
-    name: string
+      name: string
 
     @Column()
-    price: number
+      price: number
 
     @Column()
-    description: string
+      description: string
 
     @Column()
-    image: string
+      image: string
 
     @Column({ default: 1 })
-    quantity: number
+      quantity: number
 
     @Column({ default: false })
-    isVeg: boolean
+      isVeg: boolean
 
     @Column()
-    categoryId: number
+      categoryId: number
 
     @ManyToOne(() => Category, (category) => category.plates)
-    category: Category
+      category: Category
 
     @OneToMany(() => Order, (order) => order.plate)
-    order: Order[]
+      order: Order[]
 
     @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)', onUpdate: 'CURRENT_TIMESTAMP(6)' })
-    updatedAt: Date
+      updatedAt: Date
 
     @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-    createdAt: Date
+      createdAt: Date
 
     @DeleteDateColumn({ type: 'timestamp', nullable: true })
-    deletedAt: Date
+      deletedAt: Date
 }

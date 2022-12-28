@@ -13,7 +13,7 @@ import { LocalStrategy } from './utils/LocalStrategy'
   imports: [
     TypeOrmModule.forFeature([User, SessionEntity]),
     UsersModule,
-    RolesModule,
+    RolesModule
   ],
   controllers: [AuthController],
   providers: [
@@ -27,7 +27,7 @@ import { LocalStrategy } from './utils/LocalStrategy'
     },
     SessionSerializer,
     LocalStrategy,
-    AuthService,
+    AuthService
   ]
 })
 export class AuthModule { }

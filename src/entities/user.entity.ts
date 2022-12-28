@@ -1,49 +1,49 @@
 import {
-    BaseEntity,
-    Entity,
-    PrimaryGeneratedColumn,
-    Column,
-    OneToOne,
-    JoinColumn,
-    ManyToOne,
-    UpdateDateColumn,
-    CreateDateColumn,
-    DeleteDateColumn,
+  BaseEntity,
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToOne,
+  JoinColumn,
+  ManyToOne,
+  UpdateDateColumn,
+  CreateDateColumn,
+  DeleteDateColumn
 } from 'typeorm'
 import { Role, Table } from 'entities'
 
 @Entity({ name: 'users' })
 export class User extends BaseEntity {
     @PrimaryGeneratedColumn()
-    id: number
+      id: number
 
     @Column({ unique: true })
-    username: string
+      username: string
 
     @Column()
-    password: string
+      password: string
 
     // table relation
     @Column({ nullable: true })
-    tableId: number
+      tableId: number
 
-    @OneToOne(_ => Table)
+    @OneToOne(() => Table)
     @JoinColumn()
-    table: Table
+      table: Table
 
     // role relation
     @Column()
-    roleId: number
+      roleId: number
 
-    @ManyToOne(_ => Role, role => role.user)
-    role: Role
+    @ManyToOne(() => Role, role => role.user)
+      role: Role
 
     @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)', onUpdate: 'CURRENT_TIMESTAMP(6)' })
-    updatedAt: Date
+      updatedAt: Date
 
     @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-    createdAt: Date
+      createdAt: Date
 
     @DeleteDateColumn({ type: 'timestamp', nullable: true })
-    deletedAt: Date
+      deletedAt: Date
 }

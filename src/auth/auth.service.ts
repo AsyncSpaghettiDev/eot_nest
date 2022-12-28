@@ -7,23 +7,24 @@ import { comparePassword } from 'utils/bcrypt'
 
 @Injectable()
 export class AuthService {
-    constructor(
-        @Inject('USER_SERVICE') private readonly userService: UsersService,
-        @InjectRepository(SessionEntity) private readonly sessionRepository: Repository<SessionEntity>,
-    ) { }
+  // eslint-disable-next-line no-useless-constructor
+  constructor (
+    @Inject('USER_SERVICE') private readonly userService: UsersService,
+    @InjectRepository(SessionEntity) private readonly sessionRepository: Repository<SessionEntity>
+  ) { }
 
-    async validateUser(username: string, password: string): Promise<any> {
-        const user = await this.userService.getUserByUsername(username)
-        if (comparePassword(password, user.password)) {
-            const { password, ...result } = user
-            return result
-        }
-        return null
+  async validateUser (username: string, password: string): Promise<any> {
+    const user = await this.userService.getUserByUsername(username)
+    if (comparePassword(password, user.password)) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { password, ...result } = user
+      return result
     }
+    return null
+  }
 
-    async deleteSession(session_id: string) {
-        const session = await this.sessionRepository.findOne({ where: { id: session_id } })
-        await this.sessionRepository.softRemove(session)
-    }
-
+  async deleteSession (sessionid: string) {
+    const session = await this.sessionRepository.findOne({ where: { id: sessionid } })
+    await this.sessionRepository.softRemove(session)
+  }
 }

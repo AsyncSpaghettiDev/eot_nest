@@ -13,38 +13,38 @@ import { PlateModule } from './plate/plate.module'
 import { StatusModule } from './status/status.module'
 import { TableModule } from './table/table.module'
 import { entities } from 'entities'
-import { migrations } from 'migrations'
-
-ConfigModule.forRoot()
+// import { migrations } from 'migrations'
 import { AdminPanelModule } from 'admin.panel'
 
+ConfigModule.forRoot()
+
 @Module({
-    imports: [
-        PassportModule.register({
-            session: true,
-        }),
-        AdminPanelModule,
-        TypeOrmModule.forRoot({
-            type: 'postgres',
-            url: process.env.DATABASE_URL,
-            host: process.env.DB_HOST,
-            port: parseInt(process.env.DB_PORT),
-            username: process.env.DB_USER,
-            password: process.env.DB_PASSWORD,
-            database: process.env.DB_DATABASE,
-            entities,
-            // migrations,
-            synchronize: true,
-        }),
-        RolesModule,
-        UsersModule,
-        AuthModule,
-        CategoryModule,
-        ActivityModule,
-        OrderModule,
-        PlateModule,
-        StatusModule,
-        TableModule,
-    ],
+  imports: [
+    PassportModule.register({
+      session: true
+    }),
+    AdminPanelModule,
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      url: process.env.DATABASE_URL,
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT),
+      username: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE,
+      entities,
+      // migrations,
+      synchronize: true
+    }),
+    RolesModule,
+    UsersModule,
+    AuthModule,
+    CategoryModule,
+    ActivityModule,
+    OrderModule,
+    PlateModule,
+    StatusModule,
+    TableModule
+  ]
 })
 export class AppModule { }

@@ -8,7 +8,7 @@ module.exports = {
   plugins: ['@typescript-eslint/eslint-plugin'],
   extends: [
     'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
+    'standard',
   ],
   root: true,
   env: {
@@ -24,5 +24,7 @@ module.exports = {
     '@typescript-eslint/semi': ['error', 'never'],
     // spaces between curly braces are allowed
     '@typescript-eslint/object-curly-spacing': 'off',
+    "no-unused-vars": "off",
+    // "@typescript-eslint/no-unused-vars": ["error"]
   },
-};
+}
