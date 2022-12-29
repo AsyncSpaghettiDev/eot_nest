@@ -22,6 +22,7 @@ async function bootstrap () {
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    proxy: process.env.NODE_ENV === 'production',
     cookie: {
       maxAge: 1000 * 60 * 60 * 12, // 12 hours
       secure: process.env.NODE_ENV === 'production',
