@@ -24,6 +24,7 @@ export class AuthService {
   }
 
   async deleteSession (sessionid: string) {
+    if (!sessionid) return
     const session = await this.sessionRepository.findOne({ where: { id: sessionid } })
     await this.sessionRepository.softRemove(session)
   }

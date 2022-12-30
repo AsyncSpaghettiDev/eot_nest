@@ -31,7 +31,8 @@ export class AuthController {
     @Session() session: Record<string, any>
   ) {
     session.authenticated = false
-    this.authService.deleteSession(session.id)
+    // not working
+    // this.authService.deleteSession(session.id)
     session.destroy()
     return session
   }

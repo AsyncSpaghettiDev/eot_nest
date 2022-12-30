@@ -2,21 +2,21 @@ import { BaseEntity, Column, CreateDateColumn, DeleteDateColumn, Entity, Primary
 
 @Entity()
 export class Notes extends BaseEntity {
-    @PrimaryGeneratedColumn()
-      id: number
+  @PrimaryGeneratedColumn()
+  id: number
 
-    @Column()
-      name: string
+  @Column()
+  name: string
 
-    @Column()
-      description: string
+  @Column()
+  description: string
 
-    @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)' })
-      createdAt: Date
+  @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP(6)' })
+  createdAt: Date
 
-    @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)', onUpdate: 'CURRENT_TIMESTAMP(6)' })
-      updatedAt: Date
+  @UpdateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP(6)', onUpdate: 'CURRENT_TIMESTAMP(6)' })
+  updatedAt: Date
 
-    @DeleteDateColumn({ type: 'timestamp', nullable: true })
-      deletedAt: Date
+  @DeleteDateColumn({ type: 'timestamptz', nullable: true })
+  deletedAt: Date
 }

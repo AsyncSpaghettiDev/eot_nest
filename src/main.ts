@@ -16,17 +16,16 @@ async function bootstrap () {
   })
   const PORT = process.env.PORT || 5000
 
-  console.log('NODE_ENV', process.env.NODE_ENV)
   const sessionRepository = app.get(DataSource).getRepository(SessionEntity)
   app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    proxy: process.env.NODE_ENV === 'production',
+    // proxy: process.env.NODE_ENV === 'production',
     cookie: {
       maxAge: 1000 * 60 * 60 * 12, // 12 hours
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      secure: false,
+      sameSite: 'strict',
       httpOnly: true
     },
     store: new TypeormStore({ cleanupLimit: 10 }).connect(sessionRepository)

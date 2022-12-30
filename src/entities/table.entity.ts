@@ -12,27 +12,27 @@ import { Activity } from 'entities'
 
 @Entity({ name: 'tables' })
 export class Table extends BaseEntity {
-    @PrimaryGeneratedColumn()
-      id: number
+  @PrimaryGeneratedColumn()
+  id: number
 
-    @Column({ unique: true, generated: 'increment' })
-      sortId: number
+  @Column({ unique: true, generated: 'increment' })
+  sortId: number
 
-    @Column()
-      name: string
+  @Column()
+  name: string
 
-    @Column()
-      capacity: number
+  @Column()
+  capacity: number
 
-    @OneToMany(() => Activity, activity => activity.table, { nullable: true })
-      activities: Activity[]
+  @OneToMany(() => Activity, activity => activity.table, { nullable: true })
+  activities: Activity[]
 
-    @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)' })
-      createdAt: Date
+  @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP(6)' })
+  createdAt: Date
 
-    @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)', onUpdate: 'CURRENT_TIMESTAMP(6)' })
-      updatedAt: Date
+  @UpdateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP(6)', onUpdate: 'CURRENT_TIMESTAMP(6)' })
+  updatedAt: Date
 
-    @DeleteDateColumn({ type: 'timestamp', nullable: true })
-      deletedAt: Date
+  @DeleteDateColumn({ type: 'timestamptz', nullable: true })
+  deletedAt: Date
 }

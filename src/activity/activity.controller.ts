@@ -8,7 +8,7 @@ import {
   Put,
   Delete
 } from '@nestjs/common'
-import { AdminGuard, AuthenticatedGuard, StaffGuard } from 'auth/utils/LocalGuard'
+import { AdminGuard, StaffGuard } from 'auth/utils/LocalGuard'
 import { ActivityService } from './activity.service'
 import {
   CreateActivityDto
@@ -39,13 +39,13 @@ export class ActivityController {
     return await this.activityService.getActivity(id)
   }
 
-  @UseGuards(AuthenticatedGuard)
+  // @UseGuards(AuthenticatedGuard)
   @Get('current/:id')
   async getCurrentActivity (@Param('id') id: number) {
     return await this.activityService.getCurrentActivity(id)
   }
 
-  @UseGuards(AuthenticatedGuard)
+  // @UseGuards(AuthenticatedGuard)
   @Get('table/:id')
   async getCurrentTableActivity (@Param('id') id: number) {
     return await this.activityService.getCurrentTableActivity(id)

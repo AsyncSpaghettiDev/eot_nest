@@ -18,7 +18,7 @@ export class TableController {
   // eslint-disable-next-line no-useless-constructor
   constructor (private tableService: TableService) { }
 
-  @UseGuards(AuthenticatedGuard)
+  // @UseGuards(AuthenticatedGuard)
   @Get()
   getTables () {
     return this.tableService.getTables()
@@ -30,7 +30,7 @@ export class TableController {
     return this.tableService.getHistoryTables()
   }
 
-  @UseGuards(AuthenticatedGuard)
+  // @UseGuards(AuthenticatedGuard)
   @Get(':id')
   getTable (@Param('id', ParseIntPipe) id: number) {
     return this.tableService.getTable(id)

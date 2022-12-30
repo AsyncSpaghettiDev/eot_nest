@@ -11,27 +11,27 @@ import { User } from 'entities'
 
 @Entity({ name: 'roles' })
 export class Role extends BaseEntity {
-    @PrimaryGeneratedColumn()
-      id: number
+  @PrimaryGeneratedColumn()
+  id: number
 
-    @Column({ unique: true, generated: 'increment' })
-      sortId: number
+  @Column({ unique: true, generated: 'increment' })
+  sortId: number
 
-    @Column()
-      name: string
+  @Column()
+  name: string
 
-    @Column()
-      description: string
+  @Column()
+  description: string
 
-    @Column({ default: false })
-      isStaff: boolean
+  @Column({ default: false })
+  isStaff: boolean
 
-    @OneToMany(() => User, user => user.role)
-      user: User
+  @OneToMany(() => User, user => user.role)
+  user: User
 
-    @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)', onUpdate: 'CURRENT_TIMESTAMP(6)' })
-      updatedAt: Date
+  @UpdateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP(6)', onUpdate: 'CURRENT_TIMESTAMP(6)' })
+  updatedAt: Date
 
-    @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-      createdAt: Date
+  @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
+  createdAt: Date
 }
