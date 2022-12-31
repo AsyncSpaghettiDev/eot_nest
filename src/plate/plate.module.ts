@@ -8,6 +8,7 @@ import { CategoryModule } from 'category/category.module'
 @Module({
   imports: [TypeOrmModule.forFeature([Plate]), CategoryModule],
   providers: [PlateService],
-  controllers: [PlateController]
+  controllers: [PlateController],
+  exports: [PlateService]
 })
 export class PlateModule { }

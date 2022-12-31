@@ -32,21 +32,27 @@ export class OrderController {
   }
 
   @UseGuards(AuthenticatedGuard)
+  @Get(':id/status')
+  async getOrderStatus (@Param('id') id: number) {
+    return await this.orderService.getOrderStatus(id)
+  }
+
+  @UseGuards(AuthenticatedGuard)
   @Post()
   async createOrder (@Body() order: CreateOrderDto) {
     return await this.orderService.createOrder(order)
   }
 
   @UseGuards(AuthenticatedGuard)
-  @Put(':id')
-  async updateOrder (@Param('id') id: number, @Body() order: UpdateOrderDto) {
-    return await this.orderService.updateOrder(id, order)
+  @Post('cancel/:id')
+  async requestCancelOrder (@Param('id') id: number) {
+    return await this.orderService.requestCancelOrder(id)
   }
 
   @UseGuards(AuthenticatedGuard)
-  @Post('request_cancel/:id')
-  async requestCancelOrder (@Param('id') id: number) {
-    return await this.orderService.requestCancelOrder(id)
+  @Put(':id')
+  async updateOrder (@Param('id') id: number, @Body() order: UpdateOrderDto) {
+    return await this.orderService.updateOrder(id, order)
   }
 
   @UseGuards(AdminGuard)

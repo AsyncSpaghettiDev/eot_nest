@@ -47,7 +47,7 @@ export class ActivityService {
         id,
         end: null
       },
-      relations: ['table', 'status', 'orders']
+      relations: ['table', 'status', 'orders', 'orders.plate']
     })
   }
 
@@ -57,7 +57,7 @@ export class ActivityService {
         tableId: id,
         end: null
       },
-      relations: ['table', 'status', 'orders']
+      relations: ['table', 'status', 'orders', 'orders.plate']
     })
     if (!activity) { throw new HttpException('Table without activity', HttpStatus.NOT_FOUND) }
 
