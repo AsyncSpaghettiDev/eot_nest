@@ -75,6 +75,7 @@ export class ActivityService {
 
   async updateActivity (id: number) {
     await this.activityExists(id)
+    await this.activityWithActiveOrders(id)
 
     const pendingStatusId: number = await this.statusService.getActivityStatusId('pending')
 
@@ -107,6 +108,18 @@ export class ActivityService {
     if (!activity) {
       throw new HttpException('Activity not found', HttpStatus.NOT_FOUND)
     }
+    return activity
+  }
+
+  async activityWithActiveOrders (id: number): Promise<Activity> {
+    const activity = await this.activityRepository.findOne({
+      where: {
+        id
+      },
+      relations: ['orders', 'orders.status']
+    })
+    console.log(activity)
+    if (activity.orders.some(order => !['cancel', 'served'].includes(order.status.name))) throw new HttpException('Activity with active orders', HttpStatus.CONFLICT)
     return activity
   }
 }
