@@ -31,7 +31,11 @@ export class OrderService {
   }
 
   async createOrder (order: CreateOrderDto): Promise<Order> {
-    const newOrder = this.orderRepository.create(order)
+    const orderStatus = await this.orderStatusService.getOrderStatusId('ordered') | 1
+    const newOrder = this.orderRepository.create({
+      ...order,
+      statusId: orderStatus
+    })
     return await this.orderRepository.save(newOrder)
   }
 

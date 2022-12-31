@@ -15,6 +15,7 @@ import { TableModule } from './table/table.module'
 import { entities } from 'entities'
 // import { migrations } from 'migrations'
 import { AdminPanelModule } from 'admin.panel'
+import { NotesModule } from './notes/notes.module';
 
 ConfigModule.forRoot()
 
@@ -44,7 +45,8 @@ ConfigModule.forRoot()
     OrderModule,
     PlateModule,
     StatusModule,
-    TableModule
+    TableModule,
+    NotesModule
   ]
 })
 export class AppModule { }

@@ -73,7 +73,8 @@ export class TableService {
     })
     return {
       ...updatedTable,
-      capacity
+      capacity,
+      name
     }
   }
 
