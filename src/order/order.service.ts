@@ -52,7 +52,9 @@ export class OrderService {
   }
 
   async updateOrder (id: number, order: UpdateOrderDto) {
-    await this.orderExists(id)
+    const { status: { name } } = await this.orderExists(id)
+
+    if (['cancel_request', 'cancel'].includes(name)) throw new HttpException('Order can not be updated', HttpStatus.NOT_ACCEPTABLE)
 
     return await this.orderRepository.update(id, order)
   }
@@ -90,7 +92,8 @@ export class OrderService {
   async orderExists (id: number): Promise<Order> {
     const orderFound = await this.orderRepository.findOne({
       where: { id },
-      relations: ['plate', 'status']
+      relations: ['plate', 'status'],
+      withDeleted: true
     })
 
     if (!orderFound) {

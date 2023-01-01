@@ -22,7 +22,22 @@ export class OrderController {
   @UseGuards(StaffGuard)
   @Get()
   async getOrders () {
-    return await this.orderService.getOrders()
+    const dbOrders = await this.orderService.getOrders()
+
+    const orders = {
+      ordered: [],
+      cooking: [],
+      ready: [],
+      served: [],
+      cancel_request: [],
+      cancel: []
+    }
+
+    dbOrders.forEach((order) => {
+      orders[order.status.name].push(order)
+    })
+
+    return orders
   }
 
   @UseGuards(AuthenticatedGuard)
@@ -49,14 +64,14 @@ export class OrderController {
     return await this.orderService.requestCancelOrder(id)
   }
 
-  @UseGuards(AuthenticatedGuard)
+  @UseGuards(StaffGuard)
   @Put(':id')
   async updateOrder (@Param('id') id: number, @Body() order: UpdateOrderDto) {
     return await this.orderService.updateOrder(id, order)
   }
 
-  @UseGuards(AdminGuard)
-  @Delete('cancel/:id')
+  @UseGuards(StaffGuard)
+  @Put('cancel/:id')
   async cancelOrder (@Param('id') id: number) {
     return await this.orderService.cancelOrder(id)
   }
