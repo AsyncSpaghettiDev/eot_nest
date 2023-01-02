@@ -24,7 +24,7 @@ export class ActivityService {
 
   async getCurrentActivities (): Promise<Activity[]> {
     return await this.activityRepository.find({
-      relations: ['table', 'status', 'orders']
+      relations: ['table', 'status', 'orders', 'orders.plate']
     })
   }
 
