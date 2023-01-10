@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import {
   BaseEntity,
   Entity,
@@ -22,6 +23,15 @@ export class User extends BaseEntity {
 
   @Column()
   password: string
+
+  @Column({ nullable: true })
+  name: string
+
+  @Column({ nullable: true })
+  lastname: string
+
+  @Column({ nullable: true })
+  phone: string
 
   // table relation
   @Column({ nullable: true })

@@ -15,10 +15,15 @@ export class UsersController {
   }
 
   @UseGuards(AdminGuard)
+  @Get('employees')
+  getEmployees () {
+    return this.usersService.getEmployees()
+  }
+
+  @UseGuards(AdminGuard)
   @Get(':id')
   getUser (@Param('id', ParseIntPipe) id: number) {
-    const user = this.usersService.getUser(id)
-    return user
+    return this.usersService.getUser(id)
   }
 
   @UseGuards(AdminGuard)

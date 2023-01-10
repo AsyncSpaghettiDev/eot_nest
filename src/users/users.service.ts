@@ -1,6 +1,6 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
+import { Not, Repository } from 'typeorm'
 import { User } from 'entities'
 import { CreateUserDto, UpdateUserDto } from 'dto'
 import { RolesService } from 'roles/roles.service'
@@ -22,14 +22,44 @@ export class UsersService {
     })
   }
 
+  getEmployees () {
+    return this.userRepository.find({
+      select: [
+        'id',
+        'username',
+        'name',
+        'lastname',
+        'phone',
+        'role',
+        'roleId'
+      ],
+      where: {
+        role: {
+          name: Not('table')
+        }
+      },
+      relations: ['role'],
+      order: {
+        role: {
+          sortId: 'ASC'
+        }
+      }
+    })
+  }
+
   async getUser (id: number) {
     const user = await this.userRepository.findOne({
       where: { id },
       relations: ['role'],
-      select: {
-        id: false,
-        password: false
-      }
+      select: [
+        'id',
+        'username',
+        'name',
+        'lastname',
+        'phone',
+        'role',
+        'roleId'
+      ]
     })
     if (!user) { throw new HttpException('User not found', HttpStatus.NOT_FOUND) }
     return user

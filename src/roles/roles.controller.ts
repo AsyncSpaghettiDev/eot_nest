@@ -15,6 +15,12 @@ export class RolesController {
   }
 
   @UseGuards(AdminGuard)
+  @Get('employees')
+  getEmployeesRoles () {
+    return this.rolesService.getEmployeesRoles()
+  }
+
+  @UseGuards(AdminGuard)
   @Get(':id')
   getRole (@Param('id', ParseIntPipe) id: number) {
     const role = this.rolesService.getRole(id)

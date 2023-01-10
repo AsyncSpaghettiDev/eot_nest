@@ -1,6 +1,6 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
+import { Not, Repository } from 'typeorm'
 import { Role } from 'entities'
 import { CreateRoleDto, UpdateRoleDto } from 'dto'
 
@@ -12,6 +12,17 @@ export class RolesService {
     return this.roleRepository.find({
       order: {
         sortId: 'ASC'
+      }
+    })
+  }
+
+  async getEmployeesRoles () {
+    return this.roleRepository.find({
+      order: {
+        sortId: 'ASC'
+      },
+      where: {
+        name: Not('table')
       }
     })
   }

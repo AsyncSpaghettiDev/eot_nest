@@ -1,4 +1,7 @@
 export class CreateUserDto {
+  name: string
+  lastname: string
+  phone: string
   username: string
   password: string
   tableId?: number
