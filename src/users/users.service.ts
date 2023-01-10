@@ -101,6 +101,7 @@ export class UsersService {
       where: { id }
     })
     if (!userExists) { throw new HttpException('User not found', HttpStatus.NOT_FOUND) }
+    if (user.password) user.password = hashPassword(user.password)
     return this.userRepository.update(id, user)
   }
 
